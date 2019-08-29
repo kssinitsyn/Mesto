@@ -1,7 +1,7 @@
-@import url(./__content/popup-bigimg__content.css);
-@import url(./_is-opened/popup-bigimg_is-opened.css);
-@import url(./__image/popup-bigimg__image.css);
-@import url(./__close/popup-bigimg__close.css);
+@import url(__content/popup-bigimg__content.css);
+@import url(_is-opened/popup-bigimg_is-opened.css);
+@import url(__image/popup-bigimg__image.css);
+@import url(__close/popup-bigimg__close.css);
 
 .popup-bigimg {
     position: fixed;

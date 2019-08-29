@@ -1,0 +1,25 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev":  "webpack-dev-server --mode development --open --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kssinitsyn/Mesto.git"
+  },
+  "author": "Kirill Sinitsyn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kssinitsyn/Mesto/issues"
+  },
+  "homepage": "https://github.com/kssinitsyn/Mesto#readme",
+  "devDependencies": {
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
