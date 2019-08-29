@@ -1,3 +1,5 @@
+import './style.css';
+
 class CardListClass {
   constructor (container, arrayData) {
     this.container = container
