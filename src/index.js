@@ -1,4 +1,5 @@
 import './style.css';
+import logo from './blocks/logo/logo.css';
 import Card from './blocks/place-card/place-card';
 import Api from './scripts/api';
 import Popup from './blocks/popup/popup';
