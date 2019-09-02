@@ -2,13 +2,14 @@ import './style.css';
 import Card from './blocks/place-card/place-card';
 import Api from './scripts/api';
 import Popup from './blocks/popup/popup';
+import CardList from './blocks/places-list/card-list';
 
 let url
 
-if (NODE_ENV === 'production') {
-    url = 'https://praktikum.tk/cohort1';
-} else {
+if (NODE_ENV === 'development') {
     url = 'http://praktikum.tk/cohort1';
+} else {
+    url = 'https://praktikum.tk/cohort1';
 }
 
 // Переменные
@@ -57,8 +58,9 @@ const editAvatarPopup = new Popup(popupAvatar, 'popup-avatar_is-opened', closeAv
 const regex = new RegExp(expression)
 
 const api = new Api('a22615e2-6b60-43bf-b944-bd524da74e3e')
+const cardListRender = new CardList('a22615e2-6b60-43bf-b944-bd524da74e3e')
 
-api.getInitialCards(url, 'GET')
+cardListRender.getInitialCards(url, 'GET')
   .then((result) => {
     for (let i = 0; i < result.length; i++) {
       const initialCards = {}
@@ -88,6 +90,7 @@ api.getInitialCards(url, 'GET')
   .catch((err) => {
     console.log(err)
   })
+
 
 api.getUserInfo(url, 'GET')
   .then((result) => {

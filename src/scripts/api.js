@@ -10,21 +10,6 @@ export default class Api {
         this.authorization = authorization
     }
 
-    getInitialCards (baseUrl, method) {
-        return fetch(`${baseUrl}/cards`, {
-            method: `${method}`,
-            headers: {
-                authorization: `${this.authorization}`
-            }
-        })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка: ${res.status}`)
-            })
-    }
-
     getUserInfo (baseUrl, method) {
         return fetch(`${baseUrl}/users/me`, {
             method: `${method}`,
