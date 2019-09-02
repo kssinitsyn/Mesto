@@ -27,7 +27,8 @@ export default class Card {
                 const deleteBtn = document.createElement('button')
                 deleteBtn.classList.add('place-card__delete-icon')
                 deleteBtn.setAttribute('card-id', `${cardId}`)
-                newCard.setAttribute('author-id', `${authorId}`)
+                deleteBtn.setAttribute('author-id', `${authorId}`)
+                // newCard.setAttribute('author-id', `${authorId}`)
                 imageContainer.appendChild(deleteBtn)
             }
 
@@ -54,7 +55,7 @@ export default class Card {
             element.classList.toggle('place-card__like-icon_liked')
         }
 
-        static remove() {
+        static remove(event) {
             const card = event.target.closest('.place-card')
             card.parentElement.removeChild(card)
         }

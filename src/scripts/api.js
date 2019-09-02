@@ -1,10 +1,17 @@
+const editBtn = document.querySelector('.popup-edit__button')
+const inputUserName = document.querySelector('.popup-edit__input_type_name')
+const inputUserAbout = document.querySelector('.popup-edit__input_type_about')
+const postBtn = document.querySelector('.popup__button')
+const postAvatar = document.querySelector('.popup-avatar__button')
+const inputAvatarUrl = document.querySelector('.popup-avatar__input_type_name')
+
 export default class Api {
     constructor (authorization) {
         this.authorization = authorization
     }
 
     getInitialCards (baseUrl, method) {
-        return fetch(`https://praktikum.tk/cohort1/${baseUrl}`, {
+        return fetch(`${baseUrl}/cards`, {
             method: `${method}`,
             headers: {
                 authorization: `${this.authorization}`
@@ -19,7 +26,7 @@ export default class Api {
     }
 
     getUserInfo (baseUrl, method) {
-        return fetch(`https://praktikum.tk/cohort1/${baseUrl}`, {
+        return fetch(`${baseUrl}/users/me`, {
             method: `${method}`,
             headers: {
                 authorization: `${this.authorization}`
@@ -35,7 +42,7 @@ export default class Api {
 
     changeUserInfo (baseUrl, method) {
         editBtn.textContent = 'Загрузка...'
-        return fetch(`https://praktikum.tk/cohort1/${baseUrl}`, {
+        return fetch(`${baseUrl}/users/me`, {
             method: `${method}`,
             headers: {
                 authorization: `${this.authorization}`,
@@ -57,7 +64,7 @@ export default class Api {
 
     postCard (baseUrl, method, nameCard, linkCard) {
         postBtn.textContent = 'Загрузка...'
-        return fetch(`https://praktikum.tk/cohort1/${baseUrl}`, {
+        return fetch(`${baseUrl}/cards/`, {
             method: `${method}`,
             headers: {
                 authorization: `${this.authorization}`,
@@ -77,7 +84,7 @@ export default class Api {
     }
 
     likeSum (baseUrl, method) {
-        return fetch(`https://praktikum.tk/cohort1/${baseUrl}`, {
+        return fetch(`${baseUrl}/cards`, {
             method: `${method}`,
             headers: {
                 authorization: `${this.authorization}`
@@ -93,7 +100,7 @@ export default class Api {
 
     changeAvatar (baseUrl, method) {
         postAvatar.textContent = 'Загрузка...'
-        return fetch(`https://praktikum.tk/cohort1/${baseUrl}`, {
+        return fetch(`${baseUrl}/users/me/avatar`, {
             method: `${method}`,
             headers: {
                 authorization: `${this.authorization}`,
@@ -112,11 +119,12 @@ export default class Api {
             })
     }
 
-    deleteCard (cardId, method) {
-        return fetch(`https://praktikum.tk/cohort1/cards/${cardId}`, {
+    deleteCard (baseUrl, cardId, method) {
+        return fetch(`${baseUrl}/cards/${cardId}`, {
             method: `${method}`,
             headers: {
-                authorization: `${this.authorization}`
+                authorization: `${this.authorization}`,
+                'Content-Type': 'application/json'
             }
         })
             .then((res) => {
@@ -127,3 +135,11 @@ export default class Api {
             })
     }
 }
+
+
+// event.target.classList.toggle("place-card__like-icon_liked");
+// }
+// remove(event) {
+//     const card = event.target.closest(".place-card");
+//     placesList.removeChild(card);
+// }

@@ -1,7 +1,9 @@
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {main: './src/index.js'},
@@ -17,8 +19,27 @@ module.exports = {
             exclude: /node_modules/
             },
             {
-            test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {importLoaders: 1},
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: __dirname + '/postcss.config.js'
+                            }
+                        },
+                    },
+                ],
             },
             {
                 test: /\.(eot|ttf|woff|woff2)$/,
@@ -47,6 +68,12 @@ module.exports = {
                 template: './src/index.html',
                 filename: 'index.html'
             }),
-            new WebpackMd5Hash()
+            new WebpackMd5Hash(),
+            new webpack.DefinePlugin({
+            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            }),
+            new CopyWebpackPlugin([
+            {from:'src/images',to:'images'}
+            ])
     ]
 };

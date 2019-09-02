@@ -1,8 +1,15 @@
 import './style.css';
-import logo from './blocks/logo/logo.css';
 import Card from './blocks/place-card/place-card';
 import Api from './scripts/api';
 import Popup from './blocks/popup/popup';
+
+let url
+
+if (NODE_ENV === 'production') {
+    url = 'https://praktikum.tk/cohort1';
+} else {
+    url = 'http://praktikum.tk/cohort1';
+}
 
 // Переменные
 // Карточки
@@ -48,9 +55,10 @@ const editFormPopup = new Popup(popupEdit, 'popup-edit_is-opened', closeEditPopu
 const newCardFormPopup = new Popup(popup, 'popup_is-opened', closeAddPopupBtn)
 const editAvatarPopup = new Popup(popupAvatar, 'popup-avatar_is-opened', closeAvatarPopup)
 const regex = new RegExp(expression)
+
 const api = new Api('a22615e2-6b60-43bf-b944-bd524da74e3e')
 
-api.getInitialCards('cards', 'GET')
+api.getInitialCards(url, 'GET')
   .then((result) => {
     for (let i = 0; i < result.length; i++) {
       const initialCards = {}
@@ -65,7 +73,7 @@ api.getInitialCards('cards', 'GET')
     }
   })
   .then(() => {
-    api.likeSum('cards', 'GET')
+    api.likeSum(url, 'GET')
       .then((result) => {
         for (let i = 0; i < result.length; i++) {
           const likeSum = document.createElement('span')
@@ -81,7 +89,7 @@ api.getInitialCards('cards', 'GET')
     console.log(err)
   })
 
-api.getUserInfo('users/me', 'GET')
+api.getUserInfo(url, 'GET')
   .then((result) => {
     const userName = document.querySelector('.user-info__name')
     userName.textContent = result.name
@@ -128,7 +136,7 @@ openAddCardPopup.addEventListener('click', () => {
 popupForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  api.postCard('cards', 'POST', placeName.value, placeImage.value)
+  api.postCard(url, 'POST', placeName.value, placeImage.value)
     .then((res) => {
       postBtn.textContent = 'Сохранить'
       postBtn.classList.remove('popup__button_enabled')
@@ -152,22 +160,22 @@ popupForm.addEventListener('submit', function (event) {
 // Лайк и удаление
 cardList.addEventListener('click', function (event) {
   // Поставить/снять лайк
-  if (event.target.classList.contains('place-card__like-icon')) {
-    Card.like(event.target)
-  }
+  // if (event.target.classList.contains('place-card__like-icon')) {
+  //   Card.like(event.target)
+  // }
   // Удалить карточку
   if (event.target.classList.contains('place-card__delete-icon')) {
     if (confirm(`Вы уверены что хотите удалить карточку под номером: ${event.target.getAttribute('card-id')}`)) {
-      // const deleteCard = event.target.querySelector(`[data-id='${deleteCardId}']`)
-
-      api.deleteCard(deleteCardId, 'DELETE')
-        .then(() => {
-          Card.remove()
-      })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+          // const authorIdCard = event.target.getAttribute('author-id')
+        const cardId = event.target.getAttribute('card-id')
+          api.deleteCard(url, cardId, 'DELETE')
+              .then(() => {
+                  Card.remove()
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+      }
   }
 })
 
@@ -175,7 +183,7 @@ cardList.addEventListener('click', function (event) {
 popupEditForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  api.changeUserInfo('users/me', 'PATCH')
+  api.changeUserInfo(url, 'PATCH')
     .then((result) => {
       editBtn.textContent = 'Сохранить'
       popupEdit.classList.remove('popup-edit_is-opened')
@@ -193,7 +201,7 @@ popupEditForm.addEventListener('submit', function (event) {
 popupAvatarForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  api.changeAvatar('users/me/avatar', 'PATCH')
+  api.changeAvatar(url, 'PATCH')
     .then((result) => {
       postAvatar.textContent = 'Сохранить'
       postAvatar.classList.remove('popup-avatar__button_enabled')

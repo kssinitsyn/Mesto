@@ -1,12 +1,12 @@
 {
   "name": "mesto",
-  "homepage": "https://kssinitsyn.github.io/Mesto/",
+  "homepage": "https://github.com/kssinitsyn/Mesto#readme",
   "version": "0.0.1",
   "description": "Images service",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open --watch",
+    "build": "NODE_ENV=production rimraf dist && webpack --mode production",
+    "dev": "NODE_ENV=development webpack-dev-server --mode development --open --watch",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
@@ -18,12 +18,12 @@
   "bugs": {
     "url": "https://github.com/kssinitsyn/Mesto/issues"
   },
-  "homepage": "https://github.com/kssinitsyn/Mesto#readme",
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "cssnano": "^4.1.10",
     "file-loader": "^4.2.0",
