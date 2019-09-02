@@ -15,10 +15,10 @@
 .button{background-color:transparent;border:1px solid #fff;color:#fff;width:150px;height:50px;font-size:30px;display:block;cursor:pointer}.button:focus{outline-color:#adff2f}
 .places-list{display:grid;grid-template-columns:repeat(auto-fill,282px);grid-gap:18px 18px;justify-content:center}
 .place-card__image{background-size:cover;background-position:50%;position:relative}.place-card__image,.place-card__image:after{height:282px;border-top-left-radius:10px;border-top-right-radius:10px}.place-card__image:after{content:"";display:block;width:282px;background-color:rgba(0,0,0,.3)}
-.place-card__delete-icon{background:url(../images/trashicon.svg) 50% no-repeat;background-color:transparent;border:none;width:18px;height:20px;position:absolute;top:18px;right:15px;cursor:pointer;display:block}
+.place-card__delete-icon{background:url(./images/trashicon.svg) 50% no-repeat;background-color:transparent;border:none;width:18px;height:20px;position:absolute;top:18px;right:15px;cursor:pointer;display:block}
 .place-card__description{display:flex;min-height:78px;align-items:center;justify-content:space-between;box-sizing:border-box;padding:0 22px}
 .place-card__name{margin:0;font-size:24px;line-height:29px}
-.place-card__like-icon{background:url(../images/likeinactive.svg) 50% no-repeat;background-color:transparent;border:none;width:21px;height:19px;cursor:pointer;transition:transform .3s linear;position:absolute;right:19px;bottom:40px}.place-card__like-icon_liked{background-image:url(../images/likeactive.svg)}.place-card__like-icon:hover{transform:scale(1.03)}
+.place-card__like-icon{background:url(./images/likeinactive.svg) 50% no-repeat;background-color:transparent;border:none;width:21px;height:19px;cursor:pointer;transition:transform .3s linear;position:absolute;right:19px;bottom:40px}.place-card__like-icon_liked{background-image:url(./images/likeactive.svg)}.place-card__like-icon:hover{transform:scale(1.03)}
 .place-card__like-sum{font-size:13px;line-height:16px;text-align:center;position:absolute;right:25px;bottom:24px}
 .place-card{width:282px;background-color:#fff;border-radius:10px;min-height:360px;position:relative}
 .popup__content{width:430px;min-height:330px;background-color:#fff;border-radius:10px;position:relative;box-sizing:border-box;padding:34px 36px}@media screen and (max-width:540px){.popup__content{width:calc(100% - 60px)}}
