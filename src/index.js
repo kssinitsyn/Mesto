@@ -1,8 +1,9 @@
-import './style.css';
 import Card from './blocks/place-card/place-card';
 import Api from './scripts/api';
 import Popup from './blocks/popup/popup';
 import CardList from './blocks/places-list/card-list';
+
+import './style.css';
 
 let url
 

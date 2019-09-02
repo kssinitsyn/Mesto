@@ -4,10 +4,10 @@ export default class Card {
             this.linkPic = linkPic
             this.cardId = cardId
             this.authorId = authorId
-            this.element = Card.create(this.name, this.linkPic, this.cardId, this.authorId)
+            this.element = this.create()
         }
 
-        static create(name, linkPic, cardId, authorId) {
+        create() {
             const myId = 'e02e6975b9ecfc5e75a38b25'
 
             const card = document.createElement('div')
@@ -21,13 +21,13 @@ export default class Card {
             const imageContainer = document.createElement('div')
             imageContainer.classList.add('place-card__image')
             newCard.appendChild(imageContainer)
-            imageContainer.setAttribute('style', `background-image: url(${linkPic})`)
+            imageContainer.setAttribute('style', `background-image: url(${this.linkPic})`)
 
-            if (authorId === myId) {
+            if (this.authorId === myId) {
                 const deleteBtn = document.createElement('button')
                 deleteBtn.classList.add('place-card__delete-icon')
-                deleteBtn.setAttribute('card-id', `${cardId}`)
-                deleteBtn.setAttribute('author-id', `${authorId}`)
+                deleteBtn.setAttribute('card-id', `${this.cardId}`)
+                deleteBtn.setAttribute('author-id', `${this.authorId}`)
                 // newCard.setAttribute('author-id', `${authorId}`)
                 imageContainer.appendChild(deleteBtn)
             }
@@ -40,7 +40,7 @@ export default class Card {
             // Создаем имя карточки
             const newName = document.createElement('h3')
             newName.classList.add('place-card__name')
-            newName.textContent = `${name}`
+            newName.textContent = `${this.name}`
             descriptionContainer.appendChild(newName)
 
             // Создаем кнопку "лайк"
