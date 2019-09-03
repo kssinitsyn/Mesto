@@ -25,6 +25,21 @@ export default class Api {
             })
     }
 
+    getInitialCards(baseUrl, method) {
+        return fetch(`${baseUrl}/cards`, {
+            method: `${method}`,
+            headers: {
+                authorization: `${this.authorization}`
+            }
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+                return Promise.reject(`Ошибка: ${res.status}`)
+            })
+    }
+
     changeUserInfo (baseUrl, method) {
         editBtn.textContent = 'Загрузка...'
         return fetch(`${baseUrl}/users/me`, {

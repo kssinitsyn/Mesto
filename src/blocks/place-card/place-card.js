@@ -4,7 +4,6 @@ export default class Card {
             this.linkPic = linkPic
             this.cardId = cardId
             this.authorId = authorId
-            this.element = this.create()
         }
 
         create() {

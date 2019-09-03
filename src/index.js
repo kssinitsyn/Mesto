@@ -5,13 +5,7 @@ import CardList from './blocks/places-list/card-list';
 
 import './style.css';
 
-let url
-
-if (NODE_ENV === 'development') {
-    url = 'http://praktikum.tk/cohort1';
-} else {
-    url = 'https://praktikum.tk/cohort1';
-}
+const serverUrl = NODE_ENV === 'production' ? 'https://praktikum.tk/cohort1' : 'http://praktikum.tk/cohort1'
 
 // Переменные
 // Карточки
@@ -59,41 +53,30 @@ const editAvatarPopup = new Popup(popupAvatar, 'popup-avatar_is-opened', closeAv
 const regex = new RegExp(expression)
 
 const api = new Api('a22615e2-6b60-43bf-b944-bd524da74e3e')
-const cardListRender = new CardList('a22615e2-6b60-43bf-b944-bd524da74e3e')
+    api.getInitialCards(serverUrl, 'GET')
+        .then(data => {
+            return data.map(item => new CardList(cardList,item))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        .then(() => {
+            api.likeSum(serverUrl, 'GET')
+                .then((result) => {
+                    for (let i = 0; i < result.length; i++) {
+                        const likeSum = document.createElement('span')
+                        likeSum.classList.add('place-card__like-sum')
+                        likeSum.textContent = result[i].likes.length
 
-cardListRender.getInitialCards(url, 'GET')
-  .then((result) => {
-    for (let i = 0; i < result.length; i++) {
-      const initialCards = {}
-      initialCards.name = result[i].name
-      initialCards.link = result[i].link
-      initialCards.id = result[i]._id
-      const authorId = result[i].owner._id
-
-      const card = new Card(initialCards.name, initialCards.link, initialCards.id, authorId)
-      const cardElement = card.element
-      cardList.appendChild(cardElement)
-    }
-  })
-  .then(() => {
-    api.likeSum(url, 'GET')
-      .then((result) => {
-        for (let i = 0; i < result.length; i++) {
-          const likeSum = document.createElement('span')
-          likeSum.classList.add('place-card__like-sum')
-          likeSum.textContent = result[i].likes.length
-
-          const descriptionContainer = document.querySelectorAll('.place-card__description')
-          descriptionContainer[i].appendChild(likeSum)
-        }
-      })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
-
-api.getUserInfo(url, 'GET')
+                        const descriptionContainer = document.querySelectorAll('.place-card__description')
+                        descriptionContainer[i].appendChild(likeSum)
+                    }
+                })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+api.getUserInfo(serverUrl, 'GET')
   .then((result) => {
     const userName = document.querySelector('.user-info__name')
     userName.textContent = result.name
@@ -140,7 +123,7 @@ openAddCardPopup.addEventListener('click', () => {
 popupForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  api.postCard(url, 'POST', placeName.value, placeImage.value)
+  api.postCard(serverUrl, 'POST', placeName.value, placeImage.value)
     .then((res) => {
       postBtn.textContent = 'Сохранить'
       postBtn.classList.remove('popup__button_enabled')
@@ -172,7 +155,7 @@ cardList.addEventListener('click', function (event) {
     if (confirm(`Вы уверены что хотите удалить карточку под номером: ${event.target.getAttribute('card-id')}`)) {
           // const authorIdCard = event.target.getAttribute('author-id')
         const cardId = event.target.getAttribute('card-id')
-          api.deleteCard(url, cardId, 'DELETE')
+          api.deleteCard(serverUrl, cardId, 'DELETE')
               .then(() => {
                   Card.remove()
               })
@@ -187,7 +170,7 @@ cardList.addEventListener('click', function (event) {
 popupEditForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  api.changeUserInfo(url, 'PATCH')
+  api.changeUserInfo(serverUrl, 'PATCH')
     .then((result) => {
       editBtn.textContent = 'Сохранить'
       popupEdit.classList.remove('popup-edit_is-opened')
@@ -205,7 +188,7 @@ popupEditForm.addEventListener('submit', function (event) {
 popupAvatarForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  api.changeAvatar(url, 'PATCH')
+  api.changeAvatar(serverUrl, 'PATCH')
     .then((result) => {
       postAvatar.textContent = 'Сохранить'
       postAvatar.classList.remove('popup-avatar__button_enabled')

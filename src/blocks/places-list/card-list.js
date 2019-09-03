@@ -1,20 +1,14 @@
-export default class CardList {
-    constructor(authorization) {
-        this.authorization = authorization
+import Card from '../place-card/place-card'
+
+export default class CardList{
+    constructor (container, item) {
+        this.container = container
+        this.item = item
+        this.render()
     }
 
-    getInitialCards(baseUrl, method) {
-        return fetch(`${baseUrl}/cards`, {
-            method: `${method}`,
-            headers: {
-                authorization: `${this.authorization}`
-            }
-        })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка: ${res.status}`)
-            })
+    render() {
+        const newCards = new Card(this.item.name, this.item.link,this.item._id,this.item.owner._id)
+        this.container.appendChild(newCards.create())
     }
 }
