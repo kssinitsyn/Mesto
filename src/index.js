@@ -5,7 +5,7 @@ import CardList from './blocks/places-list/card-list';
 
 import './style.css';
 
-const serverUrl = NODE_ENV === 'production' ? 'https://praktikum.tk/cohort1' : 'http://praktikum.tk/cohort1'
+const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort1' : 'https://praktikum.tk/cohort1'
 
 // Переменные
 // Карточки
